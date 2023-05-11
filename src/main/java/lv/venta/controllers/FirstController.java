@@ -115,8 +115,7 @@ public class FirstController {
 	}
 	
 	
-	// TODO uzlikt visām validācijām message ziņojumus
-	// TODO nodrošināt validāciju arī pie update
+	
 	@PostMapping("/insert")
 	public String insertProductPostFunc(@Valid Product product, BindingResult result)//tiek saņemts aizpildīts produkts
 	{
@@ -150,17 +149,26 @@ public class FirstController {
 	// izveidot uupdate-page.html, kas strādās uz cita endpoint
 	// izveidot post kontrolieri, kas saņemoto objektu redigē arī allProducts sarakstā
 	
+	// TODO uzlikt visām validācijām message ziņojumus
+	// TODO nodrošināt validaciju update
+	
 	@PostMapping("/update/{id}")
-	public String updateProductByIdPostFunc(@PathVariable("id") int id, Product product )//ienāk redigētais produkts
+	public String updateProductByIdPostFunc(@PathVariable("id") int id, @Valid Product product, BindingResult result)//ienāk redigētais produkts
 	{
-		try {
-		Product temp = crudService.updateProductByParams(id, product.getTitle(), product.getPrice(),  product.getDescription(), product.getQuantity());
-			return "redirect:/product/"+temp.getTitle(); //tiks izsaukst localhost:8080/product/Abols
+		if(!result.hasErrors()) {
+			try {
+				Product temp = crudService.updateProductByParams(id, product.getTitle(), product.getPrice(),  product.getDescription(), product.getQuantity());
+				return "redirect:/product/"+temp.getTitle(); //tiks izsaukst localhost:8080/product/Abols
 			}
-		catch (Exception e) {
-			return "redirect:/error";//tiks izsaukts localhost:8080/error
-		}	
+			catch (Exception e) {
+				return "redirect:/error";//tiks izsaukts localhost:8080/error
+			}	
 		}
+	
+		else {
+			return "update-page";
+		}
+	}
 	
 	@GetMapping("/error")
 	public String errorFunc() {

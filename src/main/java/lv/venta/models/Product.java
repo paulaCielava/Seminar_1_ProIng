@@ -15,7 +15,7 @@ public class Product {
 	
 	@NotNull
 	@Pattern(regexp = "[A-ZĀŠĒĢŪĪĶĻŅŽ]{1}[a-zēīļķšāžņģ\\ ]+")
-	@Size(min = 3, max = 30)
+	@Size(min = 3, max = 30, message = "Jābūt vismaz 3 simbolus garam un nedrīkst pārsniegt 30 simbolus")
 	private String title;
 	
 	@Min(value = 0)
