@@ -6,11 +6,14 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import lv.venta.models.Product;
 import lv.venta.services.ICRUDProductService;
 import lv.venta.services.IFilteringProductService;
@@ -112,13 +115,19 @@ public class FirstController {
 	}
 	
 	
+	// TODO uzlikt visām validācijām message ziņojumus
+	// TODO nodrošināt validāciju arī pie update
 	@PostMapping("/insert")
-	public String insertProductPostFunc(Product product)//tiek saņemts aizpildīts produkts
+	public String insertProductPostFunc(@Valid Product product, BindingResult result)//tiek saņemts aizpildīts produkts
 	{
-		//TODO var izveidot dažādas pāŗbaudes
-		crudService.insertProductByParams(product.getTitle(), product.getPrice(), product.getDescription(), product.getQuantity());
-		return "redirect:/allproducts";//izsaucam get kontrolieri localhost:8080/allproducts
-		
+		if(!result.hasErrors()) {
+			//TODO var izveidot dažādas pāŗbaudes
+			crudService.insertProductByParams(product.getTitle(), product.getPrice(), product.getDescription(), product.getQuantity());
+			return "redirect:/allproducts";//izsaucam get kontrolieri localhost:8080/allproducts
+		}
+		else {
+			return "insert-page";
+		}
 		
 	}
 	
