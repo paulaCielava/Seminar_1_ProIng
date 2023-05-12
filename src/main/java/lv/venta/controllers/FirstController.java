@@ -54,11 +54,11 @@ public class FirstController {
 	@GetMapping("/productOne") 
 	public String productByParamFunc(@RequestParam("title") String title, Model model) {
 		if(title!=null) {
-			Product temp;
+			
 			try {
-				temp = crudService.retrieveOneProductByTitle(title);
-				model.addAttribute("myProduct", temp);
-				return "product-page";
+				ArrayList<Product> temp = crudService.retrieveAllProductByTitle(title);
+				model.addAttribute("myAllProducts", temp);
+				return "all-products-page";
 			} catch (Exception e) {
 				return "error-page";//parādīs error-page.html lapu
 			}
@@ -73,11 +73,11 @@ public class FirstController {
 	@GetMapping("/product/{title}") 
 	public String productByParamFunc2(@PathVariable("title") String title, Model model) {
 		if(title!=null) {
-			Product temp;
+			
 			try {
-				temp = crudService.retrieveOneProductByTitle(title);
-				model.addAttribute("myProduct", temp);
-				return "product-page";
+				ArrayList<Product> temp = crudService.retrieveAllProductByTitle(title);
+				model.addAttribute("myAllProducts", temp);
+				return "all-products-page";
 			} catch (Exception e) {
 				return "error-page";//parādīs error-page.html lapu
 			}
