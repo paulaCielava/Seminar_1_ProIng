@@ -2,6 +2,7 @@ bin/
 .mvn/
 mvnw
 mvnw.cmd
+src/main/resourcesapplication.properties
 
 HELP.md
 target/
