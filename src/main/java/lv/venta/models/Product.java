@@ -26,7 +26,7 @@ public class Product {
 	
 	@Column(name = "Title") // DB pusē būs kolonna "Title"
 	@NotNull
-	@Pattern(regexp = "[A-ZĀŠĒĢŪĪĶĻŅŽ]{1}[a-zēīļķšāžņģ\\ ]+")
+	@Pattern(regexp = "[A-ZĀŠĒĢŪĪĶĻŅŽ]{1}[a-zēīļķšāžņūģ\\ ]+")
 	@Size(min = 3, max = 30, message = "Jābūt vismaz 3 simbolus garam un nedrīkst pārsniegt 30 simbolus")
 	private String title;
 	
