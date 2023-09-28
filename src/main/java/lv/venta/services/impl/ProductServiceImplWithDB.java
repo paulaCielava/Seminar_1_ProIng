@@ -82,5 +82,11 @@ public class ProductServiceImplWithDB implements ICRUDProductService, IFiltering
 			throw new Exception("Wrong id");
 		}
 	}
+
+	@Override
+	public ArrayList<Product> filterByQuantityLess(int quantity) {
+		ArrayList<Product> result = productRepo.findByQuantityLessThan(quantity);
+		return result;
+	}
 	
 }

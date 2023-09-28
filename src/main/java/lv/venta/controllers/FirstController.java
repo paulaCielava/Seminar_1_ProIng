@@ -191,7 +191,17 @@ public class FirstController {
 		
 		}
 		
-	
+	@GetMapping("/filter/quantity/{threshold}")// <--           jāsakrīt 
+	public String filterProductByQuantityGetFunc(@PathVariable("threshold") int threshold, Model model) {
+		if (threshold > 0) {
+			ArrayList<Product> products = filterService.filterByQuantityLess(threshold);
+			model.addAttribute("myAllProducts", products);
+			return "all-products-page"; // atvērsies all products HTML lapa
+		}
+		else {
+			return "error-page";
+		}
+	}
 	
 	
 	
