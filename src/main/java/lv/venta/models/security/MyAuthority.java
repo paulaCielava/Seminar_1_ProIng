@@ -30,7 +30,7 @@ public class MyAuthority {
 	private String title;
 	
 	@ManyToMany
-	@JoinTable(name = "Users_Authorities", joinColumns = @JoinColumn(name = "MyUserId"), inverseJoinColumns = @JoinColumn(name = "MyAuthorityId"))
+	@JoinTable(name = "Users_Authorities", joinColumns = @JoinColumn(name = "MyAuthorityId"), inverseJoinColumns = @JoinColumn(name = "MyUserId"))
 	private Collection<MyUser> users = new ArrayList<>();
 	
 	

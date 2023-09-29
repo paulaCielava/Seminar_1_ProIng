@@ -40,11 +40,13 @@ public class Seminar1Application {
 				
 				MyAuthority auth1 = new MyAuthority("ADMIN");
 				MyAuthority auth2 = new MyAuthority("USER");
+				
 				auth1.addUser(user1);
 				auth2.addUser(user2);
 				auth2.addUser(user1);
 				authorityRepo.save(auth1);
 				authorityRepo.save(auth2);
+				
 				user1.addAuthority(auth1);
 				user1.addAuthority(auth2);
 				user2.addAuthority(auth2);
