@@ -7,14 +7,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import lv.venta.models.security.MyAuthority;
+import jakarta.servlet.DispatcherType;
 import lv.venta.services.impl.security.MyUserDetailsManagerImpl;
 
 @Configuration
@@ -82,10 +80,13 @@ public class SecurityConfig {
     .requestMatchers("/error").permitAll()
     .requestMatchers("/h2-console").permitAll()
     .requestMatchers("/h2-console/**").permitAll()
+    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
     .and()
     .formLogin().permitAll()
     .and()
-    .logout().permitAll();
+    .logout().permitAll()
+    .and().exceptionHandling().accessDeniedPage("/my_access_denied");
+    
     
     return http.build();
 
